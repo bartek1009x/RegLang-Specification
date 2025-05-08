@@ -22,6 +22,7 @@ Now let's get into explaining the aspects of the language more precisely.
 4. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
 5. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
 6. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+7. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
 
 # Primitive data types
 Let's start with data types.
@@ -246,4 +247,109 @@ There's also an alternative string formatting option if you want to e.g. easily 
 ```
 int x = 1;
 String s = `The value of x is equal to {x}` -- the {varName} wouldn't do anything if the string was made with "" instead of ``
+```
+
+# Regions
+Now the main unique feature of the language - regions.
+
+```
+region r1 {}
+```
+
+As you can see, a region is created using the `region` keyword followed by the region's name and the region body.
+
+```
+region r1 {
+  int x = 1;
+
+  region r2 {
+    int x = 5; -- a new variable called x in this region. the original x from r1 will no longer be accessible in r2, as in r2 a variable with the same name has been defined
+    int y = 10;
+
+    println(x); -- prints out 5
+    println(y); -- prints out 10
+  } -- here, when the region ends, both x and y get deallocated from memory. only r2's x though, not the x from r1, as those are two completely different variables, despite having the same name
+
+  println(x); -- prints out 1
+}
+```
+
+Regions can be nested. When a region ends, everything that was allocated inside it gets deallocated.
+What's also worth noting is that **functions can't be defined inside regions**, as they are always either global or tied to classes.
+
+```
+region r1 {
+  int x = 1;
+
+  region r2 {
+    region r3 {
+      println(x);
+
+      region r4 {
+        region r5 {
+          region r6 {
+            region r7 {
+              -- and so on
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+In this scenario we have many regions. Imagine that each one has its own code and variables. The `x` variable defined in region `r1` is not used past `r3`, so keeping it allocated for the entire duration of the program's execution would be a memory leak. We don't need `x` in `r4`, `r5` and so on, so we can deallocate it after using it for the last time using the built-in `free()` function, like this:
+
+```
+region r1 {
+  int x = 1;
+
+  region r2 {
+    region r3 {
+      println(x);
+      free(x @ r1);
+
+      region r4 {
+        region r5 {
+          region r6 {
+            region r7 {
+              -- and so on
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Normally, the `x` variable would get deallocated when the region it was defined in (`r1`) ends, so in this case it would be at the end of the program's execution. However, we have used the `free()` function after it was used for the last time, so it was deallocated earlier. The `@` (at) symbol tells the compiler which x to deallocate. If we had a variable called `x` both in the `r1` region and let's say the `r2` region, it would be unclear for the compiler which x variable to free - the one in `r1` or the one in `r2`. Because of this, the `@` operator has to be used to specify in which region the compiler should search for the variable to deallocate.
+
+This isn't the only use case for the `@` operator though - when you have nested regions and you're in one of the nested ones, but you want to allocate a variable in one of the outer region, you can use the `@` operator to specify in which region you want the variable to be allocated, like this:
+
+```
+region r1 {
+  region r2 {
+    -- there are no variables defined in r2 initially
+
+    region r3 {
+
+      int x @ r2 = 10; -- x will be allocated in r2, not in r3 where this code is written
+
+      println(x); -- of course now it will also be accessible in all the inner nested regions from r3 to the last one
+      region r4 {
+        region r5 {
+          region r6 {
+            region r7 {
+              -- and so on
+            }
+          }
+        }
+      }
+    }
+
+    println(x); -- the x variable can be accessed in r2 now, even though it wasn't originally allocated in r2
+  } -- the x variable will of course get deallocated when the r2 region ends
+}
 ```
