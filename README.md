@@ -45,11 +45,11 @@ But in the case of `bool`, I think that it's more clear that it's a short for `b
 int number = 5;
 
 if number > 5 {
-  print("The number is higher than 5");
+  println("The number is higher than 5");
 } else if number < 5 {
-  print("The number is lower than 5");
+  println("The number is lower than 5");
 } else {
-  print("The number is equal to 5");
+  println("The number is equal to 5");
 }
 ```
 As you can see, the if statements are basically the same as in every other language.
