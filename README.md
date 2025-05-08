@@ -17,10 +17,11 @@ Now let's get into explaining the aspects of the language more precisely.
 
 # Contents
 1. [Primitive data types](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#primitive-data-types)
-2. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
-3. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
-4. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
-5. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+2. [Operators](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#operators)
+3. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
+4. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
+5. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
+6. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
 
 # Primitive data types
 Let's start with data types.
@@ -38,6 +39,39 @@ char var6 = "a"; -- a single unicode character
 I decided to go with data type names similiar to the ones in Java. If you want a 64 bit int you don't have to write `long long int` like in C++ which is too much boilerplate in my opinion. "Why not go with Rust's `i64`?" you might ask. To be honest, it's just a matter of preference for the most part, and I just prefer the Java data type names, but you could also make the argument that for begginer programmers or people who switch from higher level languages that just have a `number` type instead of `int`s (Lua, JavaScript), it might not be that clear what the `i` in `i64` stands for.
 
 But in the case of `bool`, I think that it's more clear that it's a short for `boolean`, so the name of this data type doesn't match its Java counterpart.
+
+# Operators
+For logical operators, there are:
+- `&&` - and,
+- `||` - or,
+- `!` - not (the opposite of the condition).
+
+For relational operators, there are:
+- `==` - equal to,
+- `!=` - not equal to,
+- `>` - greater than,
+- `<` - less than,
+- `>=` - greater than or equal to,
+- `<=` - less than or equal to.
+
+For arithmetic operators, there are:
+- `+` - addition,
+- `-` - subtraction,
+- `*` - multiplication,
+- `/` - division,
+- `//` - floor division,
+- `**` - exponentiation,
+- `%` - modulus,
+- `-` - unary negation.
+
+For compound assignment:
+- `+=` addition `(x = x + y)`,
+- `-=` - subtraction `(x = x - y)`,
+- `*=` - multiplication `(x = x * y)`,
+- `/=` - division `(x = x / y)`,
+- `//=` - floor division `(x = x // y)`,
+- `**=` - exponentiation `(x = x ** y)`,
+- `%=` - modulus `(x = x % y)`.
 
 # If statements
 
