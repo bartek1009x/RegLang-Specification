@@ -15,6 +15,12 @@ But now a bit more seriously: region based memory management is something that's
 
 Now let's get into explaining the aspects of the language more precisely.
 
+# Contents
+1. [Data Types](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#primitive-data-types)
+1. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
+1. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
+1. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+
 # Primitive data types
 Let's start with data types.
 ```
