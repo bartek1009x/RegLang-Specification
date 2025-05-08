@@ -16,10 +16,11 @@ But now a bit more seriously: region based memory management is something that's
 Now let's get into explaining the aspects of the language more precisely.
 
 # Contents
-1. [Data Types](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#primitive-data-types)
-1. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
-1. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
-1. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+1. [Primitive data types](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#primitive-data-types)
+2. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
+3. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
+4. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
+5. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
 
 # Primitive data types
 Let's start with data types.
@@ -37,6 +38,22 @@ char var6 = "a"; -- a single unicode character
 I decided to go with data type names similiar to the ones in Java. If you want a 64 bit int you don't have to write `long long int` like in C++ which is too much boilerplate in my opinion. "Why not go with Rust's `i64`?" you might ask. To be honest, it's just a matter of preference for the most part, and I just prefer the Java data type names, but you could also make the argument that for begginer programmers or people who switch from higher level languages that just have a `number` type instead of `int`s (Lua, JavaScript), it might not be that clear what the `i` in `i64` stands for.
 
 But in the case of `bool`, I think that it's more clear that it's a short for `boolean`, so the name of this data type doesn't match its Java counterpart.
+
+# If statements
+
+```
+int number = 5;
+
+if number > 5 {
+  print("The number is higher than 5")
+} else if number < 5 {
+  print("The number is lower than 5")
+} else {
+  print("The number is equal to 5")
+}
+```
+As you can see, the if statements are basically the same as in every other language.
+What's worth noting is that it doesn't require parenthasis for the condition like C or Java, and it uses `else if` instead of a dedicated keyword like `elseif` in Lua or `elif` in Python. 
 
 # Functions
 The function syntax looks like this:
