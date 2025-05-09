@@ -355,7 +355,7 @@ str2 += " How are you?"; -- using the compoound operator is of course the same a
 println(str2); -- prints Hello! How are you?
 ```
 
-There's also an alternative string formatting option if you want to e.g. easily insrert variable values into a string, inspired by Luau's string formatting.
+There's also an alternative string formatting option if you want to e.g. easily insert variable values into a string, inspired by Luau's string formatting.
 
 ```
 int x = 1;
