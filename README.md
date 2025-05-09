@@ -74,6 +74,14 @@ For compound assignment:
 - `**=` - exponentiation `(x = x ** y)`,
 - `%=` - modulus `(x = x % y)`.
 
+For bitwise operators:
+- `&` - bitwise and,
+- `|` - bitwise or,
+- `^` - bitwise xor,
+- `<<` - left shift,
+- `>>` - right shift,
+- `~` - bitwise not.
+
 # If statements
 
 ```
@@ -326,7 +334,25 @@ region r1 {
 
 Normally, the `x` variable would get deallocated when the region it was defined in (`r1`) ends, so in this case it would be at the end of the program's execution. However, we have used the `free()` function after it was used for the last time, so it was deallocated earlier. The `@` (at) symbol tells the compiler which x to deallocate. If we had a variable called `x` both in the `r1` region and let's say the `r2` region, it would be unclear for the compiler which x variable to free - the one in `r1` or the one in `r2`. Because of this, the `@` operator has to be used to specify in which region the compiler should search for the variable to deallocate.
 
-This isn't the only use case for the `@` operator though - when you have nested regions and you're in one of the nested ones, but you want to allocate a variable in one of the outer region, you can use the `@` operator to specify in which region you want the variable to be allocated, like this:
+You can also use the `@` operator to access variables from outer regions if there are multiple with the same name.
+
+```
+region r1 {
+  int x = 1;
+
+  region r2 {
+    int x = 5;
+
+    region r3 {
+      println(x); -- prints out 5
+      println(x @ r2); -- also prints out 5
+      println(x @ r1); -- prints out 1
+    }
+  }
+}
+```
+
+Accessing variables from other regions isn't the only use case for the `@` operator though - when you have nested regions and you're in one of the nested ones, but you want to allocate a variable in one of the outer region, you can use the `@` operator to specify in which region you want the variable to be allocated, like this:
 
 ```
 region r1 {
@@ -352,4 +378,7 @@ region r1 {
     println(x); -- the x variable can be accessed in r2 now, even though it wasn't originally allocated in r2
   } -- the x variable will of course get deallocated when the r2 region ends
 }
+
 ```
+
+You'll probably be nesting a lot of regions when writing more complex programs. Since you manage memory with the way you write regions, you need to be careful with the structure of your code. To keep the code readable, remember to wrap code in functions where it makes sense.
