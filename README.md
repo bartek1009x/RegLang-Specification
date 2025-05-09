@@ -489,4 +489,4 @@ if (number > 5) r1 {
 
 As you can see in the example, you can write the name of the region after the condition, thus making it a normal, non-anonymous region and allowing you to use the `@` operator in regions that will be nested in the main one.
 
-When creating a normal, non-anonymous region inside if statements or loops, you don't write `region` like you usually do when creating a new region, because in this case it would be unnecessary.
+When creating a normal, non-anonymous region for an if statements or loop condition, you don't write `region` like you usually do when creating a new region, because in this case it would be unnecessary.
