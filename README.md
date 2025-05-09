@@ -24,6 +24,7 @@ Now let's get into explaining the aspects of the language more precisely.
 6. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
 7. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
 8. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
+8. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
 
 # Primitive data types
 Let's start with data types.
@@ -433,3 +434,21 @@ region r1 {
 ```
 
 You'll probably be nesting a lot of regions when writing more complex programs. Since you manage memory with the way you write regions, you need to be careful with the structure of your code. To keep the code readable, remember to wrap code in functions where it makes sense.
+
+# Anonymous regions
+In the previous section about regions, we learned how to create regions with names that identify them, which allows for the usage of the `@` operator. However, it's possible to create a region without giving it a name. That would be an anonymous region.
+
+```
+{
+  println("Anonymous region 1");
+  {
+    println("Anonymous region 2");
+  }
+}
+```
+
+As you can see, anonymous regions are created with just curly brackets to define where they start and where they end. Those regions are pretty much the same as blocks made with curly brackets in languages like C, Java or Rust (with the exception that anonymous regions can't return anything, unlike the Rust blocks), or `do end` blocks in Lua. RegLang just uses different terminology that fits the language better, so that's why these aren't called blocks.
+
+Of course in if statements, loops, etc. when you write `{` and `}` to define where the scope starts and ends, that is an anonymous region too.
+
+Since anonymous regions don't have names, you can't use the `@` operator to access or allocate variables in outer regions, when you're inside a nested region.
