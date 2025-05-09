@@ -17,12 +17,13 @@ Now let's get into explaining the aspects of the language more precisely.
 
 # Contents
 1. [Primitive data types](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#primitive-data-types)
-2. [Operators](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#operators)
-3. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
-4. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
-5. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
-6. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
-7. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
+2. [Comments](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#comments)
+3. [Operators](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#operators)
+4. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
+5. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
+6. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
+7. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+8. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
 
 # Primitive data types
 Let's start with data types.
@@ -40,6 +41,22 @@ char var6 = "a"; -- a single unicode character
 I decided to go with data type names similiar to the ones in Java. If you want a 64 bit int you don't have to write `long long int` like in C++ which is too much boilerplate in my opinion. "Why not go with Rust's `i64`?" you might ask. To be honest, it's just a matter of preference for the most part, and I just prefer the Java data type names, but you could also make the argument that for begginer programmers or people who switch from higher level languages that just have a `number` type instead of `int`s (Lua, JavaScript), it might not be that clear what the `i` in `i64` stands for.
 
 But in the case of `bool`, I think that it's more clear that it's a short for `boolean`, so the name of this data type doesn't match its Java counterpart.
+
+# Comments
+Not much to say about them. Single line comments are done with `--` like in Lua, while multi-line comments are done with `/*` and `*/` like in Java and other similiar languages.
+The language doesn't have increment/decrement operators like C or Java, so the usage of `--` isn't a problem.
+
+```
+-- this is a single line comment
+
+/*
+this
+is
+a
+multi-line
+comment
+*/
+```
 
 # Operators
 For logical operators, there are:
@@ -65,14 +82,16 @@ For arithmetic operators, there are:
 - `%` - modulus,
 - `-` - unary negation.
 
+You might notice there are no increment (`++`) or decrement (`--`) operators. I decided not to include them in the language, because they can unnecessarily complicate the code. You can just use the `+=` and `-=` compound operators to add or subtract 1 and assign the new value. It's clearer than `x++` or `x--`, which may get confused with `++x` and `--x`.
+
 For compound assignment:
-- `+=` addition `(x = x + y)`,
-- `-=` - subtraction `(x = x - y)`,
-- `*=` - multiplication `(x = x * y)`,
-- `/=` - division `(x = x / y)`,
-- `//=` - floor division `(x = x // y)`,
-- `**=` - exponentiation `(x = x ** y)`,
-- `%=` - modulus `(x = x % y)`.
+- `+=` addition (`x = x + y`),
+- `-=` - subtraction (`x = x - y`),
+- `*=` - multiplication (`x = x * y`),
+- `/=` - division (`x = x / y`),
+- `//=` - floor division (`x = x // y`),
+- `**=` - exponentiation (`x = x ** y`),
+- `%=` - modulus (`x = x % y`).
 
 For bitwise operators:
 - `&` - bitwise and,
@@ -96,7 +115,7 @@ if number > 5 {
 }
 ```
 As you can see, the if statements are basically the same as in every other language.
-What's worth noting is that it doesn't require parenthasis for the condition like C or Java, and it uses `else if` instead of a dedicated keyword like `elseif` in Lua or `elif` in Python. 
+What's worth noting is that it doesn't require parenthasis for the condition like C or Java, and it uses `else if` instead of a dedicated keyword like `elseif` in Lua or `elif` in Python. Also uses brackents instead of `then` and `end` like Lua.
 
 # Functions
 The function syntax looks like this:
@@ -185,6 +204,29 @@ In a scenario like this where the function's result is once assigned to a variab
 If the function's result wasn't ever assigned to any variable, the return type would be `void`.
 
 Overall this is a feature that's made primarly to reduce boilerplate, so you don't have to write `: void` in functions that don't return anything and you don't need to specify the return type for functions that are returning an obvious type (e.g. if you have a function called getUsername(), it's pretty obvious it's going to return a String, because what else could the username be?). **Generally it's advised to specify the return type for clarity**, unless in your case the function doesn't return anything or has a name clearly suggesting what it's going to return.
+
+When it comes to argument passing in the functions, it works the same way as in Java. Primitive types get copied and the copies get passed to the function, while for everything else, so classes, arrays, etc. it's a copy of the reference to the object that gets passed to the function.
+
+```
+func example(int number) {
+  number = 5; -- doesn't modify the original x variable
+}
+
+int x = 10;
+example(x);
+println(x); -- prints out 10
+```
+```
+func example(int[] numbers) {
+  numbers[0] = 5; -- modifies the first element in the array, even in the original x variable
+  numbers = new int[] {1, 2}; -- doesn't modify the original array from the x variable
+}
+
+int[] x = {1, 2, 3, 4, 5, 6, 7};
+println(x[0]); -- prints out 1
+example(x);
+println(x[0]); -- prints out 5
+```
 
 # Classes
 C has structs, which can't have functions inside them. But then there's Rust, which also has structs, but its structs **can** have functions inside them (they can be added through a `impl structName { functions here }` block). Structs with functions are already kind of used like classes, but they are a bit lower level and less flexible as a result. That's why I think that instead of adding structs with functions, I might as well just add classes. I think it's a more flexible approach that basically lets you do stuff more easily. And also I just like object oriented programming.
