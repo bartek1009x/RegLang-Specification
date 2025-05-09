@@ -43,6 +43,24 @@ I decided to go with data type names similiar to the ones in Java. If you want a
 
 But in the case of `bool`, I think that it's more clear that it's a short for `boolean`, so the name of this data type doesn't match its Java counterpart.
 
+What should also be mentioned is that in RegLang, every data type is its own thing. What does that mean? A boolean is a boolean, and an int is an int. Boolean values (`true`, `false`) are **not** the same as `0` and `1` values of an int. Those are two completely different types.
+
+```C
+int main() {
+  int x = 0;
+
+  if (x) {
+    printf("x is true");
+  }
+
+  return 0;
+}
+```
+
+This C code would not print anything out, as the if statement's condition would evaluate to `false`, because any non-zero value will be treated as `true` in C, while zeros are treated as `false`.
+
+In RegLang, if you tried to write similiar code, the if statement's condition would evaluate to `true`. Why? Because booleans are their own type and ints (or any other types for numbers) are their own types, not related to each other. `0` is a number, it shouldn't be equal to something that's not a number.
+
 # Comments
 Not much to say about them. Single line comments are done with `--` like in Lua, while multi-line comments are done with `/*` and `*/` like in Java and other similiar languages.
 The language doesn't have increment/decrement operators like C or Java, so the usage of `--` isn't a problem.
