@@ -33,7 +33,7 @@ byte var2 = 1; -- 8 bit int, 1 byte too, but for numbers
 short var3 = 1; -- 16 bit int
 int var4 = 1; -- 32 bit int
 long var5 = 1; -- 64 bit int
-float	var6 = 1.5; -- 32 bit floating-point
+float var6 = 1.5; -- 32 bit floating-point
 double var7 = 1.5; -- 64 bit floating-point
 char var6 = "a"; -- a single unicode character
 ```
@@ -232,6 +232,7 @@ println(x[0]); -- prints out 5
 C has structs, which can't have functions inside them. But then there's Rust, which also has structs, but its structs **can** have functions inside them (they can be added through a `impl structName { functions here }` block). Structs with functions are already kind of used like classes, but they are a bit lower level and less flexible as a result. That's why I think that instead of adding structs with functions, I might as well just add classes. I think it's a more flexible approach that basically lets you do stuff more easily. And also I just like object oriented programming.
 
 Let me demonstrate how classes should be made, with a generic Animal class example:
+
 ```
 abstract class Animal {
   public:
@@ -272,6 +273,14 @@ dogInstance.printAge(); -- prints 10
 As you can see, I took an approach to classes that's a mix between C++ and Java. It's mostly the same as in Java, except for the `public` and `private` sections that are like the ones in C++. It removes the unnecessary boilerplate of writing `public` or `private` in the definition of every variable or function that you want to be public or private.
 
 When it comes to keywords, it uses similiar keywords to Java's class definition keywords, like `extends` or `abstract`. Why not `:` instead of `extends` like in C++? Honestly I just prefer `extends`, though an argument could also be made that it's more readable.
+
+Similarly to Java, besides being abstract, classes can also be final. That of course means that a class can't be extended.
+
+```
+final class Animal {}
+
+class Dog extends Animal {} -- this would be impossible to do, because Animal has been defined as a final class in this example
+```
 
 Classes themselves are always "public", which means they can be used anywhere after they have been defined. Additionally, you can't nest class definitions, so you can't have a class definition inside another class definition.
 
