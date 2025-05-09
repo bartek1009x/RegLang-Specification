@@ -21,6 +21,8 @@ Now let's get into explaining the aspects of the language more precisely.
 1. [Primitive data types](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#primitive-data-types)
 2. [Comments](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#comments)
 3. [Operators](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#operators)
+4. [Variables](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#variables)
+4. [Constants](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#constants)
 4. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
 5. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
 6. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
@@ -121,6 +123,37 @@ For bitwise operators:
 - `<<` - left shift,
 - `>>` - right shift,
 - `~` - bitwise not.
+
+# Variables
+You could have already seen how to create variables in the [Primitive data types](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#primitive-data-types) example code. However what hasn't been said yet is that **all varaibles are immutable by default**. In order to make them mutable, you have to use the `mut` variable modifier.
+
+```
+int x = 10; -- this variable is immutable
+mut int y = 10; -- this variable is mutable
+
+x += 1; -- this would be impossible to do as the value of an immutable variable can't change
+y += 1; -- this would work as you'd expect since y has been defined as a mutable variable
+```
+
+Of course if a variable is immutable its value can't be changed, but it can be reassigned.
+
+# Constants
+
+Immutable variables should not be confused with constants. RegLang features both immutable variables and constants. The value of an immutable variable can't change, but you can still reassign it, as it's just a variable. However when it comes to constants, they aren't variables at all, they're constants. Defining a constant is very similiar to defining a variable, but a constant is inlined at compile-time. It also means that it can't be reassign later on.
+
+```
+int x = 10; -- this is an immutable variable
+const int y = 10; -- this is a constant
+
+int x = 5; -- I can reassign the x variable
+const int y = 5; -- but reassigning a constant like this wouldn't be possible
+```
+
+Constants must be known at compile-time, so they should be used for something like e.g. the value of PI.
+
+```
+const double PI = 3.141592653589793;
+```
 
 # If statements
 
