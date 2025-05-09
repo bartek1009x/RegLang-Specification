@@ -36,7 +36,7 @@ int var4 = 1; -- 32 bit int
 long var5 = 1; -- 64 bit int
 float var6 = 1.5; -- 32 bit floating-point
 double var7 = 1.5; -- 64 bit floating-point
-char var6 = "a"; -- a single unicode character
+char var6 = 'a'; -- a single unicode character, uses the single quote symbol, unlike strings which use the double quote symbol
 ```
 
 I decided to go with data type names similiar to the ones in Java. If you want a 64 bit int you don't have to write `long long int` like in C++ which is too much boilerplate in my opinion. "Why not go with Rust's `i64`?" you might ask. To be honest, it's just a matter of preference for the most part, and I just prefer the Java data type names, but you could also make the argument that for begginer programmers or people who switch from higher level languages that just have a `number` type instead of `int`s (Lua, JavaScript), it might not be that clear what the `i` in `i64` stands for.
