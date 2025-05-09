@@ -125,16 +125,16 @@ For bitwise operators:
 ```
 int number = 5;
 
-if number > 5 {
+if (number > 5) {
   println("The number is higher than 5");
-} else if number < 5 {
+} else if (number < 5) {
   println("The number is lower than 5");
 } else {
   println("The number is equal to 5");
 }
 ```
 As you can see, the if statements are basically the same as in every other language.
-What's worth noting is that it doesn't require parenthasis for the condition like C or Java, and it uses `else if` instead of a dedicated keyword like `elseif` in Lua or `elif` in Python. Also uses brackents instead of `then` and `end` like Lua.
+What's worth noting is that it requires parenthasis for the condition like C or Java, and it uses `else if` instead of a dedicated keyword like `elseif` in Lua or `elif` in Python. Also uses brackents instead of `then` and `end` like Lua.
 
 # Functions
 The function syntax looks like this:
@@ -200,7 +200,7 @@ And of course, if you tried to return multiple types in one function, the compil
 
 ```
 func someFunction(int x) {
-  if x >= 10 {
+  if (x >= 10) {
     return true;
   } else {
     return 0;
@@ -467,6 +467,26 @@ In the previous section about regions, we learned how to create regions with nam
 
 As you can see, anonymous regions are created with just curly brackets to define where they start and where they end. Those regions are pretty much the same as blocks made with curly brackets in languages like C, Java or Rust (with the exception that anonymous regions can't return anything, unlike the Rust blocks), or `do end` blocks in Lua. RegLang just uses different terminology that fits the language better, so that's why these aren't called blocks.
 
-Of course in if statements, loops, etc. when you write `{` and `}` to define where the scope starts and ends, that is an anonymous region too.
-
 Since anonymous regions don't have names, you can't use the `@` operator to access or allocate variables in outer regions, when you're inside a nested region.
+
+And of course in if statements, loops, etc. when you write `{` and `}` to define where the scope starts and ends, that is an anonymous region too.
+However, nothing stops you from writing non-anonymous regions for them if you'd want to.
+
+```
+int number = 10;
+
+if (number > 5) r1 {
+  println("The number is higher than 5");
+  region r2 {
+    int x @ r1 = 10;
+  }
+} else if (number < 5) r1 {
+  println("The number is lower than 5");
+} else r1 {
+  println("The number is equal to 5");
+}
+```
+
+As you can see in the example, you can write the name of the region after the condition, thus making it a normal, non-anonymous region and allowing you to use the `@` operator in regions that will be nested in the main one.
+
+When creating a normal, non-anonymous region inside if statements or loops, you don't write `region` like you usually do when creating a new region, because in this case it would be unnecessary.
