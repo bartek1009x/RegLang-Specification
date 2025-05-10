@@ -10,6 +10,8 @@ In terms of inspiration from other languages, it draws inspiration mainly from J
 # What is RegLang?
 RegLang is a statically typed, AOT (ahead-of-time) compiled language with region based memory management (hence the name, **Reg**Lang). You've heared it right - no garbage collection, no borrow checker, no pointers. Something a bit different than what we're used to.
 
+It uses `.regl` as its file extension (`.reg` would be cooler, but it's already used by the Windows Registry).
+
 # Why?
 Why not? - that would be the simplest answer.
 
