@@ -27,9 +27,10 @@ Now let's get into explaining the aspects of the language more precisely.
 7. [Arrays](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#arrays)
 8. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
 9. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
-10. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
-11. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
-12. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
+10. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
+11. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+12. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
+13. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
 
 # Primitive data types
 Let's start with data types.
@@ -356,16 +357,65 @@ class Dog extends Animal {} -- this would be impossible to do, because Animal ha
 
 Classes themselves are always "public", which means they can be used anywhere after they have been defined. Additionally, you can't nest class definitions, so you can't have a class definition inside another class definition.
 
-# String
-A String would basically be a built-in wrapper class that has a `char` vector. It should have all the basic string properties as public variables that would be updated internally in the class, and also some utility methods too.
+Classes also have **constructors**. Constructors are basically functions that are called when you create a new instance of a class.
 
 ```
-mut String str = "Hello, world!";
+class Person {
+  public:
+    String name;
+    
+    Person(String name) {
+      this.name = name;  
+    }
+}
+
+Person newPerson = new Person("Bart");
+println(newPerson.name); -- prints out Bart
+```
+
+Similiarly to Java, there's a `this` keyword. When in the constructor you have an argument that's called the same as one of the class's variables, it makes it possible to distinguish between the two.
+
+There's also some syntax sugar for creating instances of classes that reduces boilerplate.
+
+```
+class Person {
+  public:
+    String name;
+    
+    Person(String name) {
+      this.name = name;  
+    }
+}
+
+Person newPerson = ("Bart"); -- you can skip writing new Person, and just write the parenthasis with the constructor's arguments. However, in this case, it's probably better to include new Person for clarity
+println(newPerson.name); -- prints out Bart
+```
+
+# Vectors
+Basically dynamic arrays that resize themselves when needed, like the ones in C++, Rust or the Java ArrayList. Implemented as classes.
+
+```
+mut Vector<int> vec = new Vector<>; -- initializes an empty vector
+mut Vector<int> vec = new Vector<>(); -- alternative way to initialize an empty vector. the parenthasis are not necessary if we're not passing any arguments (which in this case would be integers)
+mut Vector<int> vec = new Vector<>(1, 2, 3, 4, 5); -- initializes a vector with values
+mut Vector<int> vec = (1, 2, 3, 4, 5); -- some syntax sugar - you can just skip writing new Vector<> entirely and just pass in the arguments (values)
+
+vec.push(7); -- the vector now has values: 1, 2, 3, 4, 5, 7
+println(vec.get(5)); -- prints out 7
+```
+
+Though accessing the internal array could be made possible by making it public, it should be kept private. Accessing the internal array would be faster, but would compromise safety, because the `get()` function of a Vector always checks bounds. Modifying the internal array could also lead to problems. If a programmer knows what they're doing, they can just make their own implementation of a vector class and make the internal array public. But it shouldn't be this way in the standard library's vector.
+
+# String
+A String would basically be a built-in wrapper class that has a `char` vector. It should have all the basic string properties and also some utility methods too. Internal variables like the length or size of the string should be kept private, and getter functions should be used. Exposing the variables by making them public could lead to users modifying the variables and that could lead to issues. Let's keep things safer.
+
+```
+mut String str = "Hello, world!"; -- as with Vectors, there's syntax sugar for Strings. it makes it possible to just write the text in "" without the need to write mut String str = new String("Hello, world!"). while vectors and other classes use parenthasis for the arguments, Strings are a special exception and only use the double quote symbols
 println(str); -- prints out Hello, world! as you'd expect
-println(str.length); -- 13, length should be accessed directly, not through some getter function like getSize(), it should be internally updated when the length changes
-println(str.bytes); -- this would print the number of bytes that the string takes in the memory
+println(str.length()); -- prints out 13
+println(str.bytes()); -- prints out the number of bytes that the string takes
 str = str.replace("Hello", "Hi"); -- an example of a string manipulation method - it returns a new string, so you have to assign the returned value to the str variable
-println(str); -- prints out Hi, world! 
+println(str); -- prints out Hi, world!
 
 -- string concatenation
 mut String str2 = "Hello!";
