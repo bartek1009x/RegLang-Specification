@@ -182,7 +182,7 @@ println(arr[0]); -- prints out 1
 println(arr.length); -- prints out 5
 println(arr.bytes); -- prints out the amount of bytes that the array takes
 
-int[] arr = new int[4]; -- this array will have max 4 elements, but currently it's empty
+mut int[] arr = new int[4]; -- this array will have max 4 elements, but currently it's empty
 arr[3] = 100; -- works as you'd expect
 arr[4] = 100; -- index out of bounds, wouldn't let you compile your code
 ```
