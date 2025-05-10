@@ -303,6 +303,50 @@ example(x);
 println(x[0]); -- prints out 5
 ```
 
+If you want a function that doesn't have a specified amount of arguments and the amount of them can vary, you can use `...` before the argument type to tell the compiler that there will be an unknown amount of arguments of this type passed in. You will then be able to use the passed arguments as an array inside the function.
+
+```
+func add(...int numbers) {
+  mut int endResult = 0;
+
+  for (int num : numbers) {
+    endResult += num;
+  }
+
+  return endResult;
+}
+
+println(add(1, 2, 3, 4, 5)); -- prints out 15
+println(add(10, 50, 25)); -- prints out 85
+```
+
+Even though we passed in multiple `int`s to the function, not an `int` array, it will be packed into an `int` array for usage inside the function.
+
+Additional arguments besides the ones that will be packed into an array can only be passed before the `...` ones, not after.
+
+```
+func addOrSubtract(boolean add, ...int numbers) {
+  mut int endResult = 0;
+
+  if (add) {
+    for (int num : numbers) {
+      endResult += num;
+    }
+  } else {
+    for (int num : numbers) {
+      endResult -= num;
+    }
+  }
+
+  return endResult;
+}
+
+println(add(true, 1, 2, 3, 4, 5)); -- prints out 15
+println(add(false, 50, 20)); -- prints out 30
+```
+
+This works, but if you wrote the arguments the other way around, like: `addOrSubtract(...int numbers, boolean add)`, this wouldn't work. This is because if there was e.g. `...int numbers, int amount, int somethingElse` it could get confusing, when passing the arguments, where the `numbers` argument ends and the other arguments start.
+
 # Classes
 C has structs, which can't have functions inside them. But then there's Rust, which also has structs, but its structs **can** have functions inside them (they can be added through a `impl structName { functions here }` block). Structs with functions are already kind of used like classes, but they are a bit lower level and less flexible as a result. That's why I think that instead of adding structs with functions, I might as well just add classes. I think it's a more flexible approach that basically lets you do stuff more easily. And also I just like object oriented programming.
 
