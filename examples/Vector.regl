@@ -3,9 +3,6 @@
 class Vector<T> {
     public:
 
-        mut <T>[] array;
-        mut int size;
-
         Vector<T>(...<T> elements) {
             int amountOfElements = 0;
 
@@ -45,6 +42,9 @@ class Vector<T> {
         }
 
     private:
+
+        mut <T>[] array;
+        mut int size;
 
         func resize() : void {
             mut <T>[] newArray = new <T>[array.length * 1.5];
