@@ -419,25 +419,17 @@ region r1 {
   int x = 1;
 
   region r2 {
+    int x = 10;
+
     region r3 {
       println(x);
       free(x @ r1);
-
-      region r4 {
-        region r5 {
-          region r6 {
-            region r7 {
-              -- and so on
-            }
-          }
-        }
-      }
     }
   }
 }
 ```
 
-Normally, the `x` variable would get deallocated when the region it was defined in (`r1`) ends, so in this case it would be at the end of the program's execution. However, we have used the `free()` function after it was used for the last time, so it was deallocated earlier. The `@` (at) symbol tells the compiler which x to deallocate. If we had a variable called `x` both in the `r1` region and let's say the `r2` region, it would be unclear for the compiler which x variable to free - the one in `r1` or the one in `r2`. Because of this, the `@` operator has to be used to specify in which region the compiler should search for the variable to deallocate.
+Normally, the `x` variable would get deallocated when the region it was defined in (`r1`) ends, so in this case it would be at the end of the program's execution. However, we have used the `free()` function after it was used for the last time, so it was deallocated earlier. The `@` (at) symbol tells the compiler which x to deallocate. We have variables called `x` both in the `r1` region and the `r2` region, so it would be unclear for the compiler which x variable to free - the one in `r1` or the one in `r2`. Because of this, the `@` operator has to be used to specify in which region the compiler should search for the variable to deallocate.
 
 You can also use the `@` operator to access variables from outer regions if there are multiple with the same name.
 
