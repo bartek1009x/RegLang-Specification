@@ -22,13 +22,14 @@ Now let's get into explaining the aspects of the language more precisely.
 2. [Comments](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#comments)
 3. [Operators](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#operators)
 4. [Variables](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#variables)
-4. [Constants](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#constants)
-4. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
-5. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
-6. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
-7. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
-8. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
-8. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
+5. [Constants](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#constants)
+6. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
+7. [Arrays](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#arrays)
+8. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
+9. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
+10. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+11. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
+12. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
 
 # Primitive data types
 Let's start with data types.
@@ -168,8 +169,25 @@ if (number > 5) {
   println("The number is equal to 5");
 }
 ```
+
 As you can see, the if statements are basically the same as in every other language.
 What's worth noting is that it requires parenthasis for the condition like C or Java, and it uses `else if` instead of a dedicated keyword like `elseif` in Lua or `elif` in Python. Also uses brackents instead of `then` and `end` like Lua.
+
+# Arrays
+Arrays in RegLang are very similiar to Java arrays, though in Java it's possible to write `[]` both after the data type and after the variable name. Writing C style arrays (`[]` after the variable name) won't work here though, only `[]` after the data type is accepted. I decided that only one of the ways to write arrays should be possible RegLang to unify syntax and reduce confusion.
+
+```
+int[] arr = new int[] {1, 2, 3, 4, 5}; -- this array will have max 5 elements
+println(arr[0]); -- prints out 1
+println(arr.length); -- prints out 5
+println(arr.bytes); -- prints out the amount of bytes that the array takes
+
+int[] arr = new int[4]; -- this array will have max 4 elements, but currently it's empty
+arr[3] = 100; -- works as you'd expect
+arr[4] = 100; -- index out of bounds, wouldn't let you compile your code
+```
+
+When you're trying to access index 4 when the max length is 4 (so max index is 3), the compiler *might* not let you compile your program at all. Of course in cases where dynamic input comes into play, or anything else that could make it impossible to evaluate whether an index out of bounds is being used anywhere in your code, the compiler would let you compile your program and you'd get an error during runtime. However, for cases like the one in the example above, it's easy to tell that there's an index out of bounds, so the program won't compile. Checking whether there are known out of bounds array index usages in your program makes compilation slower, but it's safer. 
 
 # Functions
 The function syntax looks like this:
