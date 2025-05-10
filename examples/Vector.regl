@@ -26,7 +26,7 @@ class Vector<T> {
             size = 0;
         }
 
-        func add(<T> element) : void {
+        func push(<T> element) : void {
             if (size == array.length) {
                 resize();
             }
