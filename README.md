@@ -514,10 +514,18 @@ As you can see, anonymous regions are created with just curly brackets to define
 
 Since anonymous regions don't have names, you can't use the `@` operator to access or allocate variables in outer regions, when you're inside a nested region.
 
-And of course in if statements, loops, etc. when you write `{` and `}` to define where the scope starts and ends, that is an anonymous region too.
-However, nothing stops you from writing non-anonymous regions for them if you'd want to.
+And of course in if statements, functions, loops, etc. when you write `{` and `}` to define where the scope starts and ends, that is an anonymous region too.
+However, nothing stops you from writing non-anonymous regions for those if you'd want to.
 
 ```
+func example() : void r1 { -- the region name goes after the return type for functions
+    println("Example");
+}
+
+func exampleWithNoReturnType() r1 {
+    println("Example");
+}
+
 int number = 10;
 
 if (number > 5) r1 {
