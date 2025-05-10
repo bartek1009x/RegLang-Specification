@@ -266,7 +266,7 @@ func example(int number) {
   number = 5; -- doesn't modify the original x variable
 }
 
-int x = 10;
+int x = 10; -- whether x is mutable or not doesn't matter in this case
 example(x);
 println(x); -- prints out 10
 ```
@@ -276,7 +276,7 @@ func example(int[] numbers) {
   numbers = new int[] {1, 2}; -- doesn't modify the original array from the x variable
 }
 
-int[] x = {1, 2, 3, 4, 5, 6, 7};
+mut int[] x = {1, 2, 3, 4, 5, 6, 7};
 println(x[0]); -- prints out 1
 example(x);
 println(x[0]); -- prints out 5
@@ -318,7 +318,7 @@ class Dog extends Animal {
 
 -- an instance of Animal can't be made since it's an abstract class
 
-Dog dogInstance = new Dog(); -- similarly to Java, you need the new keyword when creating a new instance of a class
+mut Dog dogInstance = new Dog(); -- similarly to Java, you need the new keyword when creating a new instance of a class
 dogInstance.sound(); -- prints Bark
 dogInstance.age = 10;
 dogInstance.printAge(); -- prints 10
@@ -342,7 +342,7 @@ Classes themselves are always "public", which means they can be used anywhere af
 A String would basically be a built-in wrapper class that has a `char` vector. It should have all the basic string properties as public variables that would be updated internally in the class, and also some utility methods too.
 
 ```
-String str = "Hello, world!";
+mut String str = "Hello, world!";
 println(str); -- prints out Hello, world! as you'd expect
 println(str.length); -- 13, length should be accessed directly, not through some getter function like getSize(), it should be internally updated when the length changes
 println(str.bytes); -- this would print the number of bytes that the string takes in the memory
@@ -350,7 +350,7 @@ str = str.replace("Hello", "Hi"); -- an example of a string manipulation method 
 println(str); -- prints out Hi, world! 
 
 -- string concatenation
-String str2 = "Hello!";
+mut String str2 = "Hello!";
 str2 += " How are you?"; -- using the compoound operator is of course the same as writing str2 = str2 + " How are you?";
 println(str2); -- prints Hello! How are you?
 ```
