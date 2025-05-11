@@ -29,10 +29,11 @@ Now let's get into explaining the aspects of the language more precisely.
 7. [Arrays](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#arrays)
 8. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
 9. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
-10. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
-11. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
-12. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
-13. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
+10. [Generics](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#generics)
+11. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
+12. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+13. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
+14. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
 
 # Primitive data types
 Let's start with data types.
@@ -437,6 +438,37 @@ Person newPerson = ("Bart"); -- you can skip writing new Person, and just write 
 println(newPerson.name); -- prints out Bart
 ```
 
+# Generics
+RegLang supports generic types for functions and classes. Those should be used when you want to create a function or class that should work with any kind of data types, like e.g. a `Vector`.
+
+```
+func makeString(<T> anything) : String {
+  return "Hello, " + anything;
+}
+
+println(makeString(1)); -- prints out Hello, 1
+println(makeString("World")); -- prints out Hello, World
+```
+
+As you can see in the example above, when a function has a `<T>` argument, it means that the argument can be of any type. The function returns a String that concatenates "Hello, " with the argument. It doesn't matter if the argument is a String, an int, or anything else. As long as it's possible to concatenate a string with the argument type, this code will work properly.
+
+```
+class Vector<T> {
+  public:
+
+    Vector<T>(...<T> elements) {
+      for (<T> element : elements) {
+        println(element);
+      }
+    }
+}
+
+Vector<String> = new Vector<>("Hello", ", ", "World!");
+Vector<int> = (1, 2, 3, 4, 5); -- of course you can skip writing new Vector<> and instead just pass the arguments to the constructor in the parenthasis, like you can with other classes
+```
+
+The above example isn't an actual Vector as it only prints out the arguments, for an actual Vector implementation you can check out the [Vector.regl example in this repository](https://github.com/bartek1009x/RegLang-Specification/blob/main/examples/Vector.regl). However what you can see is how generics are used in classes. There's `<T>` after the class name in the class declaration (first line) and in the constructor. The constructor's arguments are packed into an array with the `...` (information about this can be found in the section about functions) and their type is specified as <T>, which means that it will be the generic type of the vector.
+
 # Vectors
 Basically dynamic arrays that resize themselves when needed, like the ones in C++, Rust or the Java ArrayList. Implemented as classes.
 
@@ -455,7 +487,7 @@ Though accessing the internal array could be made possible by making it public, 
 A String would basically be a built-in wrapper class that has a `char` vector. It should have all the basic string properties and also some utility methods too. Internal variables like the length or size of the string should be kept private, and getter functions should be used. Exposing the variables by making them public could lead to users modifying the variables and that could lead to issues. Let's keep things safer.
 
 ```
-mut String str = "Hello, world!"; -- as with Vectors, there's syntax sugar for Strings. it makes it possible to just write the text in "" without the need to write mut String str = new String("Hello, world!"). while vectors and other classes use parenthasis for the arguments, Strings are a special exception and only use the double quote symbols
+mut String str = "Hello, world!"; -- as with Vectors, there's syntax sugar for Strings. it makes it possible to just write the text in "" without the need to write mut String str = new String("Hello, world!"). while vectors and other classes use parenthasis for the arguments, Strings are a special exception and only use the double quote symbols. you could write String str = ("Hello, world!"); as well, but it's not necessary in this case
 println(str); -- prints out Hello, world! as you'd expect
 println(str.length()); -- prints out 13
 println(str.bytes()); -- prints out the number of bytes that the string takes
