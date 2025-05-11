@@ -441,8 +441,7 @@ println(newPerson.name); -- prints out Bart
 Basically dynamic arrays that resize themselves when needed, like the ones in C++, Rust or the Java ArrayList. Implemented as classes.
 
 ```
-mut Vector<int> vec = new Vector<>; -- initializes an empty vector
-mut Vector<int> vec = new Vector<>(); -- alternative way to initialize an empty vector. the parenthasis are not necessary if we're not passing any arguments (which in this case would be integers)
+mut Vector<int> vec = new Vector<>(); -- initializing an empty vector
 mut Vector<int> vec = new Vector<>(1, 2, 3, 4, 5); -- initializes a vector with values
 mut Vector<int> vec = (1, 2, 3, 4, 5); -- some syntax sugar - you can just skip writing new Vector<> entirely and just pass in the arguments (values)
 
