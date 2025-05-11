@@ -30,10 +30,11 @@ Now let's get into explaining the aspects of the language more precisely.
 8. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
 9. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
 10. [Generics](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#generics)
-11. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
-12. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
-13. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
-14. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
+11. [Standard library](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#standard-library)
+12. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
+13. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+14. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
+15. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
 
 # Primitive data types
 Let's start with data types.
@@ -468,6 +469,24 @@ Vector<int> = (1, 2, 3, 4, 5); -- of course you can skip writing new Vector<> an
 ```
 
 The above example isn't an actual Vector as it only prints out the arguments, for an actual Vector implementation you can check out the [Vector.regl example in this repository](https://github.com/bartek1009x/RegLang-Specification/blob/main/examples/Vector.regl). However what you can see is how generics are used in classes. There's `<T>` after the class name in the class declaration (first line) and in the constructor. The constructor's arguments are packed into an array with the `...` (information about this can be found in the section about functions) and their type is specified as <T>, which means that it will be the generic type of the vector.
+
+# Standard Library
+One of the things that I immediately liked when I started coding in Java was its rich standard library and all the things that it had built-in (well, most of them were in the JDK, not in the language itself, but you know what I mean). While RegLang is meant to be in the lower level category of langauges (C, C++, etc.), so lower level than Java, I think that it should still have a standard library covering all the functionality used daily, unlike the C std which is not too extensive.
+
+The language should have built-in functions and classes covering:
+- OS (for platform specific needs),
+- Processes,
+- Filesystem,
+- I/O,
+- Math,
+- Random,
+- Strings,
+- Vectors,
+- Maps,
+- Coroutines,
+- Threads.
+
+Those are **essential** for a modern language in my opinion. Of course, coverage of other functionality could also be considered for the std, but what I have listed are the essentials, the bare minimum.
 
 # Vectors
 Basically dynamic arrays that resize themselves when needed, like the ones in C++, Rust or the Java ArrayList. Implemented as classes.
