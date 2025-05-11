@@ -352,6 +352,8 @@ This works, but if you wrote the arguments the other way around, like: `addOrSub
 # Classes
 C has structs, which can't have functions inside them. But then there's Rust, which also has structs, but its structs **can** have functions inside them (they can be added through a `impl structName { functions here }` block). Structs with functions are already kind of used like classes, but they are a bit lower level and less flexible as a result. That's why I think that instead of adding structs with functions, I might as well just add classes. I think it's a more flexible approach that basically lets you do stuff more easily. And also I just like object oriented programming.
 
+All classes extend a built-in `Object` class, like in Java. It has some basic functions like e.g. className() which returns the name of the class.
+
 Let me demonstrate how classes should be made, with a generic Animal class example:
 
 ```
@@ -469,6 +471,17 @@ Vector<int> = (1, 2, 3, 4, 5); -- of course you can skip writing new Vector<> an
 ```
 
 The above example isn't an actual Vector as it only prints out the arguments, for an actual Vector implementation you can check out the [Vector.regl example in this repository](https://github.com/bartek1009x/RegLang-Specification/blob/main/examples/Vector.regl). However what you can see is how generics are used in classes. There's `<T>` after the class name in the class declaration (first line) and in the constructor. The constructor's arguments are packed into an array with the `...` (information about this can be found in the section about functions) and their type is specified as <T>, which means that it will be the generic type of the vector.
+
+Writing just `<T>` allows any type, whether it's a primitive type or a class. In case you'd want only specific classes to be allowed, you could write `<T extends CLASS_NAME>`, where the CLASS_NAME would obviously be the name of your class.
+
+```
+func getClassName(<T extends Object> someClass) : String { -- every class extends the Object class, which is the initial class for all classes in the language
+  return someClass.className();
+}
+
+println(getClassName(new String())); -- prints out String
+println(getClassName('a')); -- a is a primitive type (char), not a class, so this won't work (it won't let you compile)
+```
 
 # Standard Library
 One of the things that I immediately liked when I started coding in Java was its rich standard library and all the things that it had built-in (well, most of them were in the JDK, not in the language itself, but you know what I mean). While RegLang is meant to be in the lower level category of langauges (C, C++, etc.), so lower level than Java, I think that it should still have a standard library covering all the functionality used daily, unlike the C std which is not too extensive.
