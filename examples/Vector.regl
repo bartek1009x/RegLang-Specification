@@ -41,6 +41,10 @@ class Vector<T> {
             }
         }
 
+        func size() : int {
+            return size;
+        }
+
     private:
 
         mut <T>[] array;
