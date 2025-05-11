@@ -439,7 +439,7 @@ println(newPerson.name); -- prints out Bart
 ```
 
 # Generics
-RegLang supports generic types for functions and classes. Those should be used when you want to create a function or class that should work with any kind of data types, like e.g. a `Vector`.
+RegLang supports generic types for functions and classes. Those should be used when you want to create a function or class that should work with any kind of data type, like e.g. a `Vector`.
 
 ```
 func makeString(<T> anything) : String {
