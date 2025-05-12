@@ -78,7 +78,7 @@ Because every data type is its own thing, you also can't assing `null` to a vari
 Nullable variables work similarly to the ones in Kotlin.
 
 ```
-String? str = null;
+mut String? str = null;
 
 if (str == null) {
   str = "Not null anymore!";
