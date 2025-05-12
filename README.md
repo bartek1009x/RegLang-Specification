@@ -21,20 +21,21 @@ Now let's get into explaining the aspects of the language more precisely.
 
 # Contents
 1. [Primitive data types](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#primitive-data-types)
-2. [Comments](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#comments)
-3. [Operators](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#operators)
-4. [Variables](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#variables)
-5. [Constants](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#constants)
-6. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
-7. [Arrays](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#arrays)
-8. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
-9. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
-10. [Generics](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#generics)
-11. [Standard library](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#standard-library)
-12. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
-13. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
-14. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
-15. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
+2. [Nulls](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#nulls)
+3. [Comments](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#comments)
+4. [Operators](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#operators)
+5. [Variables](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#variables)
+6. [Constants](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#constants)
+7. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
+8. [Arrays](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#arrays)
+9. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
+10. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
+11. [Generics](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#generics)
+12. [Standard library](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#standard-library)
+13. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
+14. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+15. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
+16. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
 
 # Primitive data types
 Let's start with data types.
@@ -70,6 +71,33 @@ int main() {
 This C code would not print anything out, as the if statement's condition would evaluate to `false`, because any non-zero value will be treated as `true` in C, while zeros are treated as `false`.
 
 In RegLang, if you tried to write similiar code, the if statement's condition would evaluate to `true`. Why? Because booleans are their own type and ints (or any other types for numbers) are their own types, not related to each other. `0` is a number, it shouldn't be equal to something that's not a number.
+
+# Nulls
+Because every data type is its own thing, you also can't assing `null` to a variable (unless it's explicitly marked as nullable) simply because `null` won't correspond to any type other than itself. If a variable is explicitly marked as nullable, then it means it can be either of the specified type or null, making it possible to use nulls for that variable.
+
+Nullable variables work similarly to the ones in Kotlin.
+
+```
+String? str = null;
+
+if (str == null) {
+  str = "Not null anymore!";
+}
+```
+
+As you can see, in order to make a variable nullable, we need to add `?` to the data type.
+
+Of course, if we tried to assign null to a variable that's not nullable, or try to access a non-nullable variable that has never been initialized, the compiler won't compile the program.
+
+```
+String s;
+println(s); -- that would be impossible, because s has never been initialized and it hasn't been marked as nullable
+
+String? s;
+println(s); -- prints out null
+```
+
+This also means that all non-nullable variables have to be initialized before usage. When dynamic input or something else prevents the compiler from being sure that a non-nullable variable isn't being accessed before initialization, it has to be marked as nullable.
 
 # Comments
 Not much to say about them. Single line comments are done with `--` like in Lua, while multi-line comments are done with `/*` and `*/` like in Java and other similiar languages.
