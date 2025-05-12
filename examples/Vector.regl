@@ -34,11 +34,10 @@ class Vector<T> {
         }
 
         func get(int index) : <T> {
-            if (index < size) {
-                return array[index];
-            } else {
-                println("Index out of bounds");
+            if (index >= size) {
+                println("Index out of bounds"); -- should error, println is a placeholder
             }
+            return array[index];
         }
 
         func size() : int {
@@ -47,11 +46,11 @@ class Vector<T> {
 
     private:
 
-        mut <T>[] array;
+        mut <T>?[] array;
         mut int size;
 
         func resize() : void {
-            mut <T>[] newArray = new <T>[array.length * 1.5];
+            mut <T>?[] newArray = new <T>[array.length * 1.5];
 
             -- copy elements
             for (int i = 0; i < array.length; 1) {
