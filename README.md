@@ -28,14 +28,15 @@ Now let's get into explaining the aspects of the language more precisely.
 6. [Constants](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#constants)
 7. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
 8. [Arrays](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#arrays)
-9. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
-10. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
-11. [Generics](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#generics)
-12. [Standard library](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#standard-library)
-13. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
-14. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
-15. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
-16. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
+9. [Loops](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#loops)
+10. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
+11. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
+12. [Generics](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#generics)
+13. [Standard library](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#standard-library)
+14. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
+15. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+16. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
+17. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
 
 # Primitive data types
 Let's start with data types.
@@ -210,17 +211,73 @@ What's worth noting is that it requires parenthasis for the condition like C or 
 Arrays in RegLang are very similiar to Java arrays, though in Java it's possible to write `[]` both after the data type and after the variable name. Writing C style arrays (`[]` after the variable name) won't work here though, only `[]` after the data type is accepted. I decided that only one of the ways to write arrays should be possible RegLang to unify syntax and reduce confusion.
 
 ```
-int[] arr = new int[] {1, 2, 3, 4, 5}; -- this array will have max 5 elements
+int[] arr = {1, 2, 3, 4, 5}; -- this array will have max 5 elements. you don't need to write int[] arr = new int[] {1, 2, 3, 4, 5}, though that would also be valid
 println(arr[0]); -- prints out 1
 println(arr.length); -- prints out 5
 println(arr.bytes); -- prints out the amount of bytes that the array takes
 
-mut int[] arr = new int[4]; -- this array will have max 4 elements, but currently it's empty
+mut int?[] arr = new int[4]; -- this array will have max 4 elements, but currently it's empty
 arr[3] = 100; -- works as you'd expect
 arr[4] = 100; -- index out of bounds, wouldn't let you compile your code
 ```
 
 When you're trying to access index 4 when the max length is 4 (so max index is 3), the compiler *might* not let you compile your program at all. Of course in cases where dynamic input comes into play, or anything else that could make it impossible to evaluate whether an index out of bounds is being used anywhere in your code, the compiler would let you compile your program and you'd get an error during runtime. However, for cases like the one in the example above, it's easy to tell that there's an index out of bounds, so the program won't compile. Checking whether there are known out of bounds array index usages in your program makes compilation slower, but it's safer. 
+
+# Loops
+The language supports `while` loops. Their condition must be in parenthasis. Besides that, they're regular `while` loops.
+```
+while (true) {
+  println("Infinite loop");
+}
+```
+
+The while loop checks for the condition first and then executes the code inside it. If you'd want it to be the other way around, so execute the code first and then check for the condition, you can reverse the `while` loop.
+
+```
+{
+println("This will get printed out before the condition will be chacked");
+} while (true)
+```
+
+Besides `while` loops, there are also `for` loops. They can be written in two ways.
+
+The first way to write them is the same as in Java or C.
+
+```
+for (int i = 0; i < 10; i += 1) { -- remember that RegLang has no increment operator, so no i++
+  println("Hello"); -- prints out Hello 10 times
+}
+```
+
+However, if you just want to loop through numbers in a range, you can also write `for` loops similiarly to how they're written in Lua.
+
+```
+for (int i = 0; 10; 1) {
+  println("Hello"); -- prints out Hello 10 times
+}
+
+-- the variable declaration can be ommited if it's not needed, because it's a for loop in a range of numbers
+for (0; 10; 1) { -- where to start from, where to end and step
+  println("Hello"); -- prints out Hello 10 times
+}
+
+for (10; 0; -1) { -- this loop is backwards
+  println("Hello"); -- prints out Hello 10 times
+}
+```
+`for (10; 0; -1) {}` is the same as `for (int i = 10; i > 0; i -= 1) {}`.
+
+If you've programmed in Lua (or Luau) before, this `for` loop might look familiar to you. First you specify where to start, then where to end and then what should the step be. The step can be both positive and negative, if you'd need a backwards loop.
+
+There's also a third `for` loop type called for-each. Basically the same as Java's for-each loops.
+
+```
+int[] numbers = {1, 2, 3};
+
+for (int num : numbers) {
+  println(num); -- prints out 1, 2 and then 3
+}
+```
 
 # Functions
 The function syntax looks like this:
