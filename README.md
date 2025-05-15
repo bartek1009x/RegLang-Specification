@@ -5,7 +5,7 @@ I have very little knowledge on writing compilers for languages, so I lack the s
 # Genesis
 I've been interested in programming language design for some time. After having many conversations with Grok 3 and ChatGPT, gaining knowledge on various aspects of language design and getting inspiration, and also consulting stuff with [@herb-ert](https://github.com/herb-ert), I have put together all the things that I learned and things that seemed interesting to me, and decided to write a language specification document that, well, documents what I came up with.
 
-In terms of inspiration from other languages, it draws inspiration mainly from Java, C, C++, Rust, Lua, Luau and maybe even Kotlin or Go? (I'm not sure what exactly inspired me to use the `func` keyword for functions, but I know these languages use it so maybe they did?)
+In terms of inspiration from other languages, it draws inspiration mainly from Java, C, C++, Rust, Lua, Luau, Kotlin and maybe even Go? (I'm not sure what exactly inspired me to use the `func` keyword for functions, but I know these languages use it so maybe they did?)
 
 # What is RegLang?
 RegLang is a statically typed, AOT (ahead-of-time) compiled language with region based memory management (hence the name, **Reg**Lang). You've heared it right - no garbage collection, no borrow checker, no pointers. Something a bit different than what we're used to.
