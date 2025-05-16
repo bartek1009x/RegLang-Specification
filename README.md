@@ -124,10 +124,10 @@ and you want to create a boolean that holds true if one of the variables is not 
 ```
 String? s;
 String? s2 = "Hello";
-bool areBothNotNull = (s || s2) && true || false;
+bool isOneNotNull = s != null || s2 != null;
 ```
 
-If you tried to assign `(s || s2)` to the variable, it would give you the value of `s2`, because `s` is null. So you have to do `(s || s2) && true || false` if you want a boolean that indicates whether one of the variables (`s` **or** `s2`) is not null.
+If you tried to assign `(s || s2)` to the variable, it would give you the value of `s2`, because `s` is null. So you have to do `s != null || s2 != null` if you want a boolean that indicates whether one of the variables (`s` **or** `s2`) is not null.
 
 Of course, nothing stops you from doing it another way, like simply writing an if else statement. 
 
