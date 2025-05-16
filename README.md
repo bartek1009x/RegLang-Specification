@@ -10,10 +10,10 @@ In terms of inspiration from other languages, it draws inspiration mainly from J
 # What is RegLang?
 RegLang is a statically typed, AOT (ahead-of-time) compiled language with region based memory management (hence the name, **Reg**Lang). You've heared it right - no garbage collection, no borrow checker, no pointers. Something a bit different than what we're used to.
 
-It uses `.regl` as its file extension (`.reg` would be cooler, but it's already used by the Windows Registry).
+It uses `.regl` as its file extension (`.reg` would be cooler, but it's already used by the Windows Registry). AI came up with the name "RegLang".
 
 # Why?
-Why not? - that would be the simplest answer.
+Why not? - that would be the simplest answer. Don't be afraid of experimenting! Well, most of the time, but you surely don't have to be afraid of this experimental language.
 
 But now a bit more seriously: region based memory management is something that's not seen in programming languages very often, especially when it's (almost - see `free()` later) the only way to manage memory. I think it's an underrated way to manage memory as it allows for manual managment, can be really fast, and is easier to use than pointers or a borrow checker (at least for me). It's also probably safer than using pointers, allocating with `malloc()` or stuff like that. It requires you to be disciplined about how you write code, as the lifespan of every variable allocated in a region is the same as the lifespan of the region itself, so you have to be careful with the way you structure your code. And of course, if you have a variable defined in the main region (which would basically mean it's kinda "global" since it can be accessed in all underlying regions) that you're only gonna use a few times, it will be allocated for the entire lifespan of a program, even when it's not needed anymore, which would basically be a memory leak. That's why there's a `free()` function that can deallocate a variable before the region that the variable has been defined in ends. More on that later.
 
@@ -99,6 +99,37 @@ println(s); -- prints out null
 ```
 
 This also means that all non-nullable variables have to be initialized before usage. When dynamic input or something else prevents the compiler from being sure that a non-nullable variable isn't being accessed before initialization, it has to be marked as nullable.
+
+Unlike Kotlin, RegLang doesn't have the elvis operator. If you have a variable and you want to assign the value of a nullable varaible to it, but if it's null then use a default value, you can use the `||` (or) comparison operator.
+
+```
+String? s = "Hello";
+println(s || "Hi"); -- prints out s OR Hi. in this case, s is not null, so it prints out s (Hello)
+
+String? s;
+println(s || "Hi"); -- prints out s OR Hi. in this case, s is null, so it prints out Hi
+```
+
+This is done very similiarly to Lua and makes the code simpler to read, as the `||` (or) operator is already used in if checks very often, so it's familiar to most developers, and it just makes sense, since it's literally called the OR operator.
+
+So now you might ask, what if I wanted to use the or operator to get a boolean when assigning to a variable? In a scenario like this:
+
+```
+String? s;
+String? s2 = "Hello";
+```
+
+and you want to create a boolean that holds true if one of the variables is not null, you can do it like this:
+
+```
+String? s;
+String? s2 = "Hello";
+bool areBothNotNull = (s || s2) && true || false;
+```
+
+If you tried to assign `(s || s2)` to the variable, it would give you the value of `s2`, because `s` is null. So you have to do `(s || s2) && true || false` if you want a boolean that indicates whether one of the variables (`s` **or** `s2`) is not null.
+
+Of course, nothing stops you from doing it another way, like simply writing an if else statement. 
 
 # Comments
 Not much to say about them. Single line comments are done with `--` like in Lua, while multi-line comments are done with `/*` and `*/` like in Java and other similiar languages.
