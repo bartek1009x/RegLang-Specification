@@ -21,22 +21,23 @@ Now let's get into explaining the aspects of the language more precisely.
 
 # Contents
 1. [Primitive data types](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#primitive-data-types)
-2. [Nulls](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#nulls)
-3. [Comments](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#comments)
-4. [Operators](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#operators)
-5. [Variables](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#variables)
-6. [Constants](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#constants)
-7. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
-8. [Arrays](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#arrays)
-9. [Loops](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#loops)
-10. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
-11. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
-12. [Generics](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#generics)
-13. [Standard library](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#standard-library)
-14. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
-15. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
-16. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
-17. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
+2. [Printing](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#printing)
+3. [Nulls](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#nulls)
+4. [Comments](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#comments)
+5. [Operators](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#operators)
+6. [Variables](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#variables)
+7. [Constants](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#constants)
+8. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
+9. [Arrays](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#arrays)
+10. [Loops](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#loops)
+11. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
+12. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
+13. [Generics](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#generics)
+14. [Standard library](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#standard-library)
+15. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
+16. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+17. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
+18. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
 
 # Primitive data types
 Let's start with data types.
@@ -72,6 +73,17 @@ int main() {
 This C code would not print anything out, as the if statement's condition would evaluate to `false`, because any non-zero value will be treated as `true` in C, while zeros are treated as `false`.
 
 In RegLang, if you tried to write similiar code, the if statement's condition would evaluate to `true`. Why? Because booleans are their own type and ints (or any other types for numbers) are their own types, not related to each other. `0` is a number, it shouldn't be equal to something that's not a number.
+
+# Printing
+You might not realize it, but printing is one of the most commonly used features of every language that has it (so, pretty much every non-esoteric language). This is why I decided to dedicate a special section in this specification file for it.
+
+One of the things I don't like about Java is that I have to write `System.out.println();` just to print something. A function as commonly used as print (or println) should be easily accessible. In RegLang, both `print()` and `println()` are just global built-in functions, instead of being a function in a library like `Console.WriteLine()` in C# or the `System.out.println()`, mentioned earlier, in Java.
+
+As I've already stated, RegLang has two functions dedicated to printing - `print()` and `println()`. The difference between them is of course that `println` automatically adds a new line after the printed thing, while `print` only prints what you passed to the function, without adding a new line automatically.
+
+You might notice that there's no `printf` function for formatting the output like in e.g. Java or C. This is because there's another way to format strings (which will be talked about later on in the [String section](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string), making a `printf` function unnecessary in RegLang.
+
+Of course, all the other output stuff should be handled by the standard library's I/O. Functions for printing are the only exception and are instead global functions built-in into the language itself, as I said, because they're very frequently used and that just simplifies their usage.
 
 # Nulls
 Because every data type is its own thing, you also can't assing `null` to a variable (unless it's explicitly marked as nullable) simply because `null` won't correspond to any type other than itself. If a variable is explicitly marked as nullable, then it means it can be either of the specified type or null, making it possible to use nulls for that variable.
