@@ -612,9 +612,10 @@ The language should have built-in functions and classes covering:
 - Strings,
 - Vectors,
 - Maps,
+- Queues,
 - Coroutines,
 - Threads,
-- Something for time would most likely be needed too.
+- Something for date and time would most likely be needed too.
 
 Those are **essential** for a modern language in my opinion. Of course, coverage of other functionality could also be considered for the std, but what I have listed are the essentials, the bare minimum.
 
