@@ -262,7 +262,7 @@ enum DayState {
   NIGHT
 }
 
-DayState currentDayState = DayState.DAY
+DayState currentDayState = DayState.DAY;
 println(currentDayState); -- prints out DAY
 ```
 
