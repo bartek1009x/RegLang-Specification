@@ -28,16 +28,17 @@ Now let's get into explaining the aspects of the language more precisely.
 6. [Variables](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#variables)
 7. [Constants](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#constants)
 8. [If statements](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#if-statements)
-9. [Arrays](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#arrays)
-10. [Loops](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#loops)
-11. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
-12. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
-13. [Generics](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#generics)
-14. [Standard library](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#standard-library)
-15. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
-16. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
-17. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
-18. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
+9. [Enums](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#enums)
+10. [Arrays](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#arrays)
+11. [Loops](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#loops)
+12. [Functions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#functions)
+13. [Classes](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#classes)
+14. [Generics](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#generics)
+15. [Standard library](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#standard-library)
+16. [Vectors](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#vectors)
+17. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
+18. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
+19. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
 
 # Primitive data types
 Let's start with data types.
@@ -248,7 +249,22 @@ if (number > 5) {
 ```
 
 As you can see, the if statements are basically the same as in every other language.
-What's worth noting is that it requires parenthasis for the condition like C or Java, and it uses `else if` instead of a dedicated keyword like `elseif` in Lua or `elif` in Python. Also uses brackents instead of `then` and `end` like Lua.
+What's worth noting is that it requires parenthasis for the condition like C or Java, and it uses `else if` instead of a dedicated keyword like `elseif` in Lua or `elif` in Python. Also uses brackets instead of `then` and `end` like Lua.
+
+# Enums
+RegLang supports Enums pretty much the same way Java does. That means that enums can **not** have properties or functions like in Rust. I don't know who thought that enumerations should have those, as structures and/or classes should be for that kind of stuff, so in RegLang enums just represent a group of constants.
+
+```
+enum DayState {
+  DAWN,
+  DAY,
+  DUSK,
+  NIGHT
+}
+
+DayState currentDayState = DayState.DAY
+println(currentDayState); -- prints out DAY
+```
 
 # Arrays
 Arrays in RegLang are very similiar to Java arrays, though in Java it's possible to write `[]` both after the data type and after the variable name. Writing C style arrays (`[]` after the variable name) won't work here though, only `[]` after the data type is accepted. I decided that only one of the ways to write arrays should be possible RegLang to unify syntax and reduce confusion.
