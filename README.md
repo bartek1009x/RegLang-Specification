@@ -266,6 +266,14 @@ DayState currentDayState = DayState.DAY;
 println(currentDayState); -- prints out DAY
 ```
 
+Enums should have pretty much all the methods Java enums have, and maybe even more. `Enum.random()`, `Enum.next()` and `Enum.previous()` would definitely be nice, just for utility. The `next` and `previous` methods would take an enum value and give you the next or previous one based on it.
+
+```
+DayState currentDayState = DayState.DAY;
+
+currentDayState = DayState.next(currentDayState); -- currentDayState is set to DUSK
+```
+
 # Arrays
 Arrays in RegLang are very similiar to Java arrays, though in Java it's possible to write `[]` both after the data type and after the variable name. Writing C style arrays (`[]` after the variable name) won't work here though, only `[]` after the data type is accepted. I decided that only one of the ways to write arrays should be possible RegLang to unify syntax and reduce confusion.
 
