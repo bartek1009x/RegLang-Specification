@@ -39,6 +39,7 @@ Now let's get into explaining the aspects of the language more precisely.
 17. [String](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#string)
 18. [Regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#regions)
 19. [Anonymous regions](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#anonymous-regions)
+20. [Reserved keywords](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#reserved-keywords)
 
 # Primitive data types
 Let's start with data types.
@@ -343,6 +344,24 @@ int[] numbers = {1, 2, 3};
 
 for (int num : numbers) {
   println(num); -- prints out 1, 2 and then 3
+}
+```
+
+The language of course features `continue` and `break` keywords for loops. I don't think these need any explanation.
+
+```
+mut int i = 0;
+
+while (true) {
+  i += 1;
+  if (i == 9) {
+    continue; -- skips to the next iteration, which in this case will be the 10th and the last one
+  }
+  println(i); -- prints out i 9 times in total
+
+  if (i == 10) {
+    break; -- breaks out of the loop
+  }
 }
 ```
 
@@ -858,3 +877,30 @@ if (number > 5) r1 {
 As you can see in the example, you can write the name of the region after the condition, thus making it a normal, non-anonymous region and allowing you to use the `@` operator in regions that will be nested in the main one.
 
 When creating a normal, non-anonymous region for an if statements or loop condition, you don't write `region` like you usually do when creating a new region, because in this case it would be unnecessary.
+
+# Reserved keywords
+I decided to add a section for reserved keywords at the end of this specification file, after all the keywords have been previously explained in earlier sections.
+
+`mut` - makes a variable mutable,
+`const` - declares that something is a constant,
+`if` - declares an if statement,
+`else` - declares an "else region" for an if statement,
+`return` - returns something in a function,
+`true` - boolean value,
+`false` - boolean value,
+`region` - declares a new region,
+`func` - declares a function,
+`while` - declares a while loop,
+`for` - declares a for loop,
+`break` - breaks out of a loop,
+`continue` - skips to the next iteration in a loop,
+`enum` - declares an enumerator,
+`class` - declares a class,
+`public` - declares which things in a class are public,
+`private` - declares which things in a class are private,
+`extends` - declares what class another class extends,
+`abstract` - makes a class abstract,
+`final` - makes a class final (unextendable),
+`this` - refers to the current class instance.
+
+Of course primitive type names, built-in global function names like `print` etc. are reserved too.
