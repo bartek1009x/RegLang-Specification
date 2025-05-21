@@ -882,25 +882,45 @@ When creating a normal, non-anonymous region for an if statements or loop condit
 I decided to add a section for reserved keywords at the end of this specification file, after all the keywords have been previously explained in earlier sections.
 
 `mut` - makes a variable mutable,
+
 `const` - declares that something is a constant,
+
 `if` - declares an if statement,
+
 `else` - declares an "else region" for an if statement,
+
 `return` - returns something in a function,
+
 `true` - boolean value,
+
 `false` - boolean value,
+
 `region` - declares a new region,
+
 `func` - declares a function,
+
 `while` - declares a while loop,
+
 `for` - declares a for loop,
+
 `break` - breaks out of a loop,
+
 `continue` - skips to the next iteration in a loop,
+
 `enum` - declares an enumerator,
+
 `class` - declares a class,
+
 `public` - declares which things in a class are public,
+
 `private` - declares which things in a class are private,
+
 `extends` - declares what class another class extends,
+
 `abstract` - makes a class abstract,
+
 `final` - makes a class final (unextendable),
+
 `this` - refers to the current class instance.
 
 Of course primitive type names, built-in global function names like `print` etc. are reserved too.
