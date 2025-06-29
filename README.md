@@ -66,7 +66,7 @@ I decided to go with data type names similiar to the ones in Java. If you want a
 
 But in the case of `bool`, I think that it's more clear that it's a short for `boolean`, so the name of this data type doesn't match its Java counterpart.
 
-What should also be mentioned is that in RegLang, every data type is its own thing. What does that mean? A boolean is a boolean, and an int is an int. Boolean values (`true`, `false`) are **not** the same as `0` and `1` values of an int. Those are two completely different types.
+What should also be mentioned is that in RegLang, every data type is its own thing. What does that mean? A boolean is a boolean, and an int is an int. Boolean values (`false`, `true`) are **not** the same as `0` and `1` values of an int. Those are two completely different types.
 
 ```C
 int main() {
