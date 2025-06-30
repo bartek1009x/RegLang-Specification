@@ -638,8 +638,8 @@ As you can see in the example above, when a function has a `<T>` argument, it me
 class Vector<T> {
   public:
 
-    Vector<T>(...<T> elements) {
-      for (<T> element : elements) {
+    Vector<T>(...T elements) {
+      for (T element : elements) {
         println(element);
       }
     }
@@ -649,9 +649,9 @@ Vector<String> = new Vector<>("Hello", ", ", "World!");
 Vector<int> = (1, 2, 3, 4, 5); -- of course you can skip writing new Vector<> and instead just pass the arguments to the constructor in the parenthasis, like you can with other classes
 ```
 
-The above example isn't an actual Vector as it only prints out the arguments, for an actual Vector implementation you can check out the [Vector.regl example in this repository](https://github.com/bartek1009x/RegLang-Specification/blob/main/examples/Vector.regl). However what you can see is how generics are used in classes. There's `<T>` after the class name in the class declaration (first line) and in the constructor. The constructor's arguments are packed into an array with the `...` (information about this can be found in the section about functions) and their type is specified as <T>, which means that it will be the generic type of the vector.
+The above example isn't an actual Vector as it only prints out the arguments, for an actual Vector implementation you can check out the [Vector.regl example in this repository](https://github.com/bartek1009x/RegLang-Specification/blob/main/examples/Vector.regl). However what you can see is how generics are used in classes. There's `<T>` after the class name in the class declaration (first line) and in the constructor. The constructor's arguments are packed into an array with the `...` (information about this can be found in the section about functions) and their type is specified as T, which means that it will be the generic type of the vector.
 
-Writing just `<T>` allows any type, whether it's a primitive type or a class. In case you'd want only specific classes to be allowed, you could write `<T extends CLASS_NAME>`, where the CLASS_NAME would obviously be the name of your class.
+Writing just `<T>` allows any type, whether it's a primitive type or a class. In case you'd want only specific classes to be allowed, you could write `<T extends CLASS_NAME>`, where the CLASS_NAME would obviously be the name of your class. If you'd want to accept all classes but no primitive types, simply write `<T extends Object>`, as Object is the base class in the language.
 
 ```
 func getClassName(<T extends Object> someClass) : String { -- every class extends the Object class, which is the initial class for all classes in the language
