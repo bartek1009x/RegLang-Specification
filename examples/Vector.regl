@@ -3,37 +3,38 @@
 class Vector<T> {
     public:
 
-        Vector<T>(...<T> elements) {
+        Vector<T>(...T elements) {
             int amountOfElements = 0;
 
             -- first loop to count the elements
-            for (<T> element : elements) {
+            for (T element : elements) {
                 amountOfElements += 1;
             }
 
-            array = new <T>[amountOfElements];
+            array = new T[amountOfElements];
             size = amountOfElements;
 
             int index = 0;
-            for (<T> element : elements) {
+            for (T element : elements) {
                 array[index] = element;
                 index += 1;
             }
         }
 
+        -- default constructor for an empty vector
         Vector<T>() {
-            array = new <T>[10];
+            array = new T[10];
             size = 0;
         }
 
-        func push(<T> element) : void {
+        func push(T element) : void {
             if (size == array.length) {
                 resize();
             }
             array[size - 1] = element;
         }
 
-        func get(int index) : <T> {
+        func get(int index) : T {
             if (index >= size) {
                 println("Index out of bounds"); -- should error, println is a placeholder
             }
@@ -46,11 +47,11 @@ class Vector<T> {
 
     private:
 
-        mut <T>?[] array;
+        mut T?[] array;
         mut int size;
 
         func resize() : void {
-            mut <T>?[] newArray = new <T>[array.length * 1.5];
+            mut T?[] newArray = new T[array.length * 1.5];
 
             -- copy elements
             for (int i = 0; i < array.length; 1) {
