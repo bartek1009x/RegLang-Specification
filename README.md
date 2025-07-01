@@ -193,7 +193,7 @@ For arithmetic operators, there are:
 - `%` - modulus,
 - `-` - unary negation.
 
-You might notice there are no increment (`++`) or decrement (`--`) operators. I decided not to include them in the language, because they can unnecessarily complicate the code. You can just use the `+=` and `-=` compound operators to add or subtract 1 and assign the new value. It's clearer than `x++` or `x--`, which may get confused with `++x` and `--x`.
+You might notice there are no increment (`++`) or decrement (`--`) operators. I decided not to include them in the language, because they can unnecessarily complicate the code. Most of the time you can just use the `+=` and `-=` compound operators to add or subtract 1 and assign the new value. It's clearer than `x++` or `x--`, which may get confused with `++x` and `--x`.
 
 For compound assignment:
 - `+=` addition (`x = x + y`),
@@ -211,6 +211,8 @@ For bitwise operators:
 - `<<` - left shift,
 - `>>` - right shift,
 - `~` - bitwise not.
+
+What's also worth noting is that RegLang does **not** support operator overloading, as it can make things unnecessarily complicated. Therefore, you also can't define operators for classes. You have a `Vector3` class with `x, y, z` coordinates and you want to add another vector to it? Write a function that adds the two. You don't need to overload a `+` operator to allow `Vector3 + Vector3`. Operators not doing unexpected things allow simplicity and readability.
 
 # Variables
 You could have already seen how to create variables in the [Primitive data types](https://github.com/bartek1009x/RegLang-Specification?tab=readme-ov-file#primitive-data-types) example code. However what hasn't been said yet is that **all varaibles are immutable by default**. In order to make them mutable, you have to use the `mut` variable modifier.
